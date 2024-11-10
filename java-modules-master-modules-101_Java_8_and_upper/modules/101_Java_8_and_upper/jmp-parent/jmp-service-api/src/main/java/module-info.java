@@ -1,5 +1,5 @@
 module jmp.service.api {
     requires jmp.dto;
 
-    exports com.epam.api.service;
+    exports com.epam.jmpserviceapi.service;
 }

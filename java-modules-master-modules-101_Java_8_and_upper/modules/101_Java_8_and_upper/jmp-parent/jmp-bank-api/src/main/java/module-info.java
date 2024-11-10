@@ -1,5 +1,5 @@
 module jmp.bank.api {
     requires jmp.dto;
 
-    exports com.epam.api.service;
+    exports com.epam.jmpbankapi.service;
 }
