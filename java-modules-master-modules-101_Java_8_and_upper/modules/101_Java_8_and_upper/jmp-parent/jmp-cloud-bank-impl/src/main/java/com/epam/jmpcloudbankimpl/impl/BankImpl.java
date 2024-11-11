@@ -9,6 +9,7 @@ import java.util.EnumMap;
 public class BankImpl implements Bank {
 
     private final EnumMap<BankCardType, BankCardCreator> cardCreators = new EnumMap<>(BankCardType.class);
+    private final CardNumberGenerator cardNumberGenerator = new CardNumberGenerator();
 
     public BankImpl() {
         cardCreators.put(BankCardType.CREDIT, user -> new CreditBankCard(generateCardNumber(), user, BankCardType.INITIAL_BALANCE));
@@ -33,9 +34,8 @@ public class BankImpl implements Bank {
         return cardCreators.get(cardType).create(user);
     }
 
-    //@TODO
     private String generateCardNumber() {
-        return "card number to be implemented";
+        return cardNumberGenerator.generateCardNumber();
     }
 
 }
