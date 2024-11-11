@@ -44,6 +44,6 @@ public class ServiceImpl implements Service {
     @Override
     public List<User> getAllUsers() {
         return subscriptionDatabase.values().stream().
-                map(Subscription::getCardUser).filter(Objects::nonNull).distinct().collect(Collectors.toList());
+                map(Subscription::getCardUser).filter(Objects::nonNull).distinct().collect(Collectors.toUnmodifiableList());
     }
 }
