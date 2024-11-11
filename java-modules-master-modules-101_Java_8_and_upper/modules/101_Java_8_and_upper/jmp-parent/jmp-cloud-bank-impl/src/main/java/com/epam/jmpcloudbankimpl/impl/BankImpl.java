@@ -31,7 +31,13 @@ public class BankImpl implements Bank {
             throw new IllegalArgumentException("User and card type must not be null");
         }
 
-        return cardCreators.get(cardType).create(user);
+        var cardCreator = cardCreators.get(cardType);
+
+        if (cardCreator == null) {
+            throw new IllegalArgumentException("Unsupported card type: " + cardType);
+        }
+
+        return cardCreator.create(user);
     }
 
     private String generateCardNumber() {
