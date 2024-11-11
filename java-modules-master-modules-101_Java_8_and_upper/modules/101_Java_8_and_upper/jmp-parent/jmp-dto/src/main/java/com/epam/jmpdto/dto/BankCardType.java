@@ -2,5 +2,7 @@ package com.epam.jmpdto.dto;
 
 public enum BankCardType {
     CREDIT,
-    DEBIT
+    DEBIT;
+
+    public static final int INITIAL_BALANCE = 0;
 }
