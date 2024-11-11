@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class ServiceImpl implements Service {
 
     //Simulating database with HashMap
-    private final Map<String, Subscription> subscriptionDatabase = new HashMap<>();
+    private final Map<String, Subscription> subscriptionDatabase = new HashMap<String, Subscription>();
 
     @Override
     public void subscribe(BankCard bankCard) {
@@ -25,7 +25,7 @@ public class ServiceImpl implements Service {
             throw new IllegalStateException("Subscription already exists for this card number!");
         }
 
-        Subscription subscription = new Subscription(bankCard, LocalDate.now());
+        var subscription = new Subscription(bankCard, LocalDate.now());
 
         subscriptionDatabase.put(bankCard.getNumber(), subscription);
     }
@@ -36,7 +36,7 @@ public class ServiceImpl implements Service {
             throw new IllegalArgumentException("Card number cannot be null, empty or invalid.");
         }
 
-        Subscription foundSubscription = subscriptionDatabase.get(cardNumber);
+        var foundSubscription = subscriptionDatabase.get(cardNumber);
 
         return Optional.ofNullable(foundSubscription);
     }
