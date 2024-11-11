@@ -21,12 +21,14 @@ public class CardNumberGeneratorTest extends TestCase {
     public void testGenerateCardNumberFormat() {
         String cardNumber = cardNumberGenerator.generateCardNumber();
         assertNotNull("Card number should not be null", cardNumber);
-        assertTrue("Card number should match the required format", cardNumber.matches("\\d{4}-\\d{4}-\\d{4}-\\d{4}"));
+        assertTrue("Card number should match the required format",
+                cardNumber.matches("\\d{4}-\\d{4}-\\d{4}-\\d{4}"));
     }
 
     public void testGenerateCardNumberSequentialIncrement() {
         long firstNumber = Long.parseLong(cardNumberGenerator.generateCardNumber().replace("-", ""));
         long secondNumber = Long.parseLong(cardNumberGenerator.generateCardNumber().replace("-", ""));
-        assertEquals("The second number should be exactly one greater than the first number", firstNumber + 1, secondNumber);
+        assertEquals("The second number should be exactly one greater than the first number",
+                firstNumber + 1, secondNumber);
     }
 }

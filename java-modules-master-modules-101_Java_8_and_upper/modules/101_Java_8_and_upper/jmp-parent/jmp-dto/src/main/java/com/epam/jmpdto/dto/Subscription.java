@@ -12,7 +12,7 @@ public class Subscription {
         this.startDate = startDate;
     }
 
-    public BankCard getBankcard() {
+    public BankCard getBankCard() {
         return bankcard;
     }
 
@@ -20,7 +20,7 @@ public class Subscription {
         return startDate;
     }
 
-    public void setBankcard(BankCard bankcard) {
+    public void setBankCard(BankCard bankcard) {
         this.bankcard = bankcard;
     }
 
