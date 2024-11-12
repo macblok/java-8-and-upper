@@ -3,6 +3,7 @@ package com.epam.jmpcloudserviceimpl.impl;
 import com.epam.jmpdto.dto.BankCard;
 import com.epam.jmpdto.dto.Subscription;
 import com.epam.jmpdto.dto.User;
+import com.epam.jmpserviceapi.service.Service;
 import junit.framework.TestCase;
 
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ public class ServiceImplTest extends TestCase {
     private String firstCardNumber;
     private BankCard firstBankCardForFirstUser;
     private BankCard secondBankCardForFirstUser;
-    private BankCard secondBankCard;
+    private BankCard firstBankCardForSecondUser;
     private User firstUser;
     private User secondUser;
 
@@ -26,7 +27,7 @@ public class ServiceImplTest extends TestCase {
         secondUser = new User("Anna", "Banker", LocalDate.of(1990, 11, 20));
         firstBankCardForFirstUser = new BankCard(firstCardNumber, firstUser);
         secondBankCardForFirstUser = new BankCard("5934-0391-8349-1299", firstUser);
-        secondBankCard = new BankCard("4856-1385-8483-8834", secondUser);
+        firstBankCardForSecondUser = new BankCard("4856-1385-8483-8834", secondUser);
     }
 
     public void testSubscribeWithValidBankCard() {
@@ -105,7 +106,7 @@ public class ServiceImplTest extends TestCase {
 
     public void testGetAllUsersWithSubscription() {
         service.subscribe(firstBankCardForFirstUser);
-        service.subscribe(secondBankCard);
+        service.subscribe(firstBankCardForSecondUser);
         List<User> users = service.getAllUsers();
         assertNotNull("The list of users should not be null", users);
         assertEquals("There should be exactly two distinct users", 2, users.size());
@@ -116,7 +117,7 @@ public class ServiceImplTest extends TestCase {
     public void testGetAllUsersListContainsUniqueUsers() {
         service.subscribe(firstBankCardForFirstUser);
         service.subscribe(secondBankCardForFirstUser);
-        service.subscribe(secondBankCard);
+        service.subscribe(firstBankCardForSecondUser);
         List<User> users = service.getAllUsers();
         assertEquals("There should still be exactly two distinct users", 2, users.size());
     }
@@ -130,5 +131,25 @@ public class ServiceImplTest extends TestCase {
         } catch (UnsupportedOperationException e) {
             // Expected result if the operation is unsupported, test passes
         }
+    }
+
+    public void testGetAllSubscriptionsByConditionNotNull() {
+        try {
+            service.getAllSubscriptionsByCondition(null);
+            fail("Should have thrown IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Condition must not be null", e.getMessage());
+        }
+    }
+
+    public void testGetAllSubscriptionsByConditionValidCase() {
+        service.subscribe(firstBankCardForFirstUser);
+        service.subscribe(secondBankCardForFirstUser);
+        service.subscribe(firstBankCardForSecondUser);
+
+        List<Subscription> result =
+                service.getAllSubscriptionsByCondition(s -> Service.isPayableUser(s.getCardUser())).stream().toList();
+        result.forEach(System.out::println);
+        assertFalse("Result should not be empty", result.isEmpty());
     }
 }

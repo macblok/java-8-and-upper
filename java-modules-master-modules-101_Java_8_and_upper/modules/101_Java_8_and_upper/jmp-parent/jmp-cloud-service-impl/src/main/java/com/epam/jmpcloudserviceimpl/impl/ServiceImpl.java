@@ -7,6 +7,7 @@ import com.epam.jmpserviceapi.service.Service;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Predicate;
 
 
 public class ServiceImpl implements Service {
@@ -72,5 +73,28 @@ public class ServiceImpl implements Service {
                 .map(Subscription::getCardUser)
                 .filter(Objects::nonNull)
                 .distinct().toList();
+    }
+
+    /**
+     * Retrieves all subscriptions that match a specified condition.
+     *
+     * This method uses a functional interface {@link Predicate} as a condition to test each subscription in the database.
+     * Only the subscriptions that satisfy the condition (for which the predicate returns {@code true}) are included in the
+     * result list. This method leverages Java's Stream API to filter subscriptions and collect results efficiently.
+     *
+     * @param condition a {@link Predicate} functional interface that represents a condition to test each subscription.
+     *                  It must not be null. The predicate receives a {@link Subscription} object and returns a {@code boolean}
+     *                  value, indicating whether the subscription meets the provided condition or not.
+     * @return a {@link List} of {@link Subscription} objects that satisfy the specified condition. If no subscriptions meet
+     *         the condition, an empty list is returned. This list is unmodifiable, meaning that you cannot perform
+     *         operations like add, remove, or clear on this list.
+     * @throws NullPointerException if the {@code condition} is null.
+     */
+    @Override
+    public List<Subscription> getAllSubscriptionsByCondition(Predicate<Subscription> condition) {
+        if (condition == null) throw new IllegalArgumentException("Condition must not be null");
+
+        return subscriptionDatabase.values().stream()
+                .filter(condition).toList();
     }
 }

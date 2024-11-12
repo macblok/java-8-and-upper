@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public interface Service {
 
@@ -16,6 +17,8 @@ public interface Service {
     Optional<Subscription> getSubscriptionByBankCardNumber(String cardNumber);
 
     List<User> getAllUsers();
+
+    List<Subscription> getAllSubscriptionsByCondition(Predicate<Subscription> condition);
 
     /**
      * Calculates the average age of all users.
