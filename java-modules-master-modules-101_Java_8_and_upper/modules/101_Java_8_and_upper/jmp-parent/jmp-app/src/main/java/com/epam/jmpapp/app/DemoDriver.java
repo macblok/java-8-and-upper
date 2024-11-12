@@ -64,6 +64,11 @@ public class DemoDriver implements Demonstrator {
         System.out.println("User: " + user + " is payable: " + Service.isPayableUser(user));
     }
 
+    public void demonstrateGetAllSubscriptionsByCondition() {
+        service.getAllSubscriptionsByCondition(s -> Service.isPayableUser(s.getCardUser()))
+                .forEach(rs -> System.out.println("Retrieved subscription by condition: " + rs));
+    }
+
     private LocalDate getRandomDate() {
         var minDay = LocalDate.of(1924, 1, 1).toEpochDay();
         var maxDay = LocalDate.of(2014, 12, 31).toEpochDay();

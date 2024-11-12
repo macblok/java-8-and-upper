@@ -13,4 +13,5 @@ public interface Demonstrator {
     void demonstrateGetAllUsers();
     void demonstrateGetAverageUsersAge();
     void demonstrateIsPayableUser(User user);
+    void demonstrateGetAllSubscriptionsByCondition();
 }
