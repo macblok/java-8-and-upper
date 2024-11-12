@@ -34,7 +34,8 @@ public class CreditBankCard extends BankCard {
     @Override
     public String toString() {
         return "CreditBankCard{" +
-                "creditLimit=" + creditLimit +
-                '}';
+                super.toString() +
+                ", creditLimit=" + creditLimit +
+                "}";
     }
 }

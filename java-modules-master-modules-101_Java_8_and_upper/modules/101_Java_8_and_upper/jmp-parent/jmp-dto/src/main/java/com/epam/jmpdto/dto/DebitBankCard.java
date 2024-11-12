@@ -35,7 +35,8 @@ public class DebitBankCard extends BankCard {
     @Override
     public String toString() {
         return "DebitBankCard{" +
-                "balance=" + balance +
-                '}';
+                super.toString() +
+                ", balance=" + balance +
+                "}";
     }
 }
