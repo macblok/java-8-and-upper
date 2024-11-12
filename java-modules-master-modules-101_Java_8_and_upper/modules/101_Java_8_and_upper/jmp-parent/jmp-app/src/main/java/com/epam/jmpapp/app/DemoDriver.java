@@ -22,7 +22,7 @@ public class DemoDriver implements Demonstrator {
     public List<BankCard> demonstrateCreateBankCard(int numberOfUsers) {
         var bankCards = IntStream.rangeClosed(1, numberOfUsers).mapToObj(i -> bank.createBankCard(
                 new User("User" + i, "Surname" + i, getRandomDate()), getRandomBankCardType())
-        ).collect(Collectors.toList());
+        ).collect(Collectors.toUnmodifiableList());
 
         bankCards.forEach(bc -> {
             if (bc instanceof DebitBankCard) ((DebitBankCard) bc).setBalance(getRandomDouble());
@@ -65,21 +65,21 @@ public class DemoDriver implements Demonstrator {
     }
 
     private LocalDate getRandomDate() {
-        long minDay = LocalDate.of(1924, 1, 1).toEpochDay();
-        long maxDay = LocalDate.of(2014, 12, 31).toEpochDay();
-        long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
+        var minDay = LocalDate.of(1924, 1, 1).toEpochDay();
+        var maxDay = LocalDate.of(2014, 12, 31).toEpochDay();
+        var randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
         return LocalDate.ofEpochDay(randomDay);
     }
 
     private BankCardType getRandomBankCardType() {
-        BankCardType[] cardTypes = BankCardType.values();
+        var cardTypes = BankCardType.values();
         int randomIndex = ThreadLocalRandom.current().nextInt(cardTypes.length);
         return cardTypes[randomIndex];
     }
 
     private double getRandomDouble() {
-        double min = 1.0;
-        double max = 10000.0;
+        var min = 1.0;
+        var max = 10000.0;
 
         var randomDouble = ThreadLocalRandom.current().nextDouble(min, max);
 
