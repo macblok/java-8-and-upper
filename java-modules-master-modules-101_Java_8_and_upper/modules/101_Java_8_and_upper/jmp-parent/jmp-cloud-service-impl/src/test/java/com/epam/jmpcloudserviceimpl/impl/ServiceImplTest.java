@@ -94,9 +94,13 @@ public class ServiceImplTest extends TestCase {
         }
     }
 
-    public void testGetSubscriptionByNonExistentBankCardNumber() {
-        Optional<Subscription> result = service.getSubscriptionByBankCardNumber("9999-9999-9999-9999");
-        assertFalse("Subscription should not be present", result.isPresent());
+    public void testGetSubscriptionByBankCardNumberThrowsSubNotFoundException() {
+        try {
+            service.getSubscriptionByBankCardNumber("9999-9999-9999-9999");
+            fail("Expected SubNotFoundException to be thrown for not subscribed card number");
+        } catch (SubNotFoundException e) {
+            assertEquals("Subscription not found for card number: 9999-9999-9999-9999", e.getMessage());
+        }
     }
 
     public void testGetAllUsersWithSubscription() {

@@ -43,6 +43,7 @@ public class ServiceImpl implements Service {
      * @param cardNumber The card number of the subscription to retrieve (must not be null, empty, or invalid).
      * @return An {@link Optional} containing the subscription if found, or an empty Optional if no subscription is found.
      * @throws IllegalArgumentException if the card number is null, empty, or does not meet valid length criteria.
+     * @throws SubNotFoundException If no subscription is found for the provided card number.
      */
     @Override
     public Optional<Subscription> getSubscriptionByBankCardNumber(String cardNumber) {
@@ -50,9 +51,12 @@ public class ServiceImpl implements Service {
             throw new IllegalArgumentException("Card number cannot be null, empty or invalid.");
         }
 
-        var foundSubscription = subscriptionDatabase.get(cardNumber);
+        var subscriptionOpt = Optional.ofNullable(subscriptionDatabase.get(cardNumber));
 
-        return Optional.ofNullable(foundSubscription);
+        System.out.println("Retrieved subscription" + subscriptionOpt.orElseThrow(() ->
+                new SubNotFoundException("Subscription not found for card number: " + cardNumber)));
+
+        return subscriptionOpt;
     }
 
     /**
