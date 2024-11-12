@@ -14,5 +14,7 @@ public class App {
         demoDriver.demonstrateGetSubscriptionByBankCardNumber(bankCards.get(0).getNumber());
         System.out.println("-".repeat(200));
         demoDriver.demonstrateGetAllUsers();
+        System.out.println("-".repeat(200));
+        demoDriver.demonstrateGetAverageUsersAge();
     }
 }

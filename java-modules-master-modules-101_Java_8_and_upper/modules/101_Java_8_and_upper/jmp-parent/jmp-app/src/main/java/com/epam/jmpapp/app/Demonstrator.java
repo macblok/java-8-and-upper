@@ -13,4 +13,6 @@ public interface Demonstrator {
     void demonstrateGetSubscriptionByBankCardNumber(String cardNumber);
 
     void demonstrateGetAllUsers();
+
+    void demonstrateGetAverageUsersAge();
 }

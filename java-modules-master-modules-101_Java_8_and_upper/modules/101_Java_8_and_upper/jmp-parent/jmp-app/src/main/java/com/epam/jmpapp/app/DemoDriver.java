@@ -55,6 +55,10 @@ public class DemoDriver implements Demonstrator {
         service.getAllUsers().forEach(System.out::println);
     }
 
+    public void demonstrateGetAverageUsersAge() {
+        System.out.println("Average users age is: " + service.getAverageUsersAge());
+    }
+
     private LocalDate getRandomDate() {
         long minDay = LocalDate.of(1960, 1, 1).toEpochDay();
         long maxDay = LocalDate.of(2006, 12, 31).toEpochDay();
