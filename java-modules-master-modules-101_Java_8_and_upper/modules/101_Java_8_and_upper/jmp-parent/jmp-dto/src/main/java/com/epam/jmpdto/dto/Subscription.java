@@ -4,15 +4,15 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Subscription {
-    private String bankcard;
+    private BankCard bankcard;
     private LocalDate startDate;
 
-    public Subscription(String bankcard, LocalDate startDate) {
+    public Subscription(BankCard bankcard, LocalDate startDate) {
         this.bankcard = bankcard;
         this.startDate = startDate;
     }
 
-    public String getBankcard() {
+    public BankCard getBankCard() {
         return bankcard;
     }
 
@@ -20,13 +20,15 @@ public class Subscription {
         return startDate;
     }
 
-    public void setBankcard(String bankcard) {
+    public void setBankCard(BankCard bankcard) {
         this.bankcard = bankcard;
     }
 
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
+
+    public User getCardUser() { return bankcard.getUser(); }
 
     @Override
     public boolean equals(Object o) {
