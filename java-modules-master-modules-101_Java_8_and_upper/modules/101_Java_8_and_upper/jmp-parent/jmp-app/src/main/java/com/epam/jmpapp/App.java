@@ -16,5 +16,7 @@ public class App {
         demoDriver.demonstrateGetAllUsers();
         System.out.println("-".repeat(200));
         demoDriver.demonstrateGetAverageUsersAge();
+        System.out.println("-".repeat(200));
+        demoDriver.demonstrateIsPayableUser(bankCards.get(0).getUser());
     }
 }

@@ -3,6 +3,7 @@ package com.epam.jmpapp.app;
 import com.epam.jmpcloudbankimpl.impl.BankImpl;
 import com.epam.jmpcloudserviceimpl.impl.ServiceImpl;
 import com.epam.jmpdto.dto.*;
+import com.epam.jmpserviceapi.service.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -59,9 +60,13 @@ public class DemoDriver implements Demonstrator {
         System.out.println("Average users age is: " + service.getAverageUsersAge());
     }
 
+    public void demonstrateIsPayableUser(User user) {
+        System.out.println("User: " + user + " is payable: " + Service.isPayableUser(user));
+    }
+
     private LocalDate getRandomDate() {
-        long minDay = LocalDate.of(1960, 1, 1).toEpochDay();
-        long maxDay = LocalDate.of(2006, 12, 31).toEpochDay();
+        long minDay = LocalDate.of(1924, 1, 1).toEpochDay();
+        long maxDay = LocalDate.of(2014, 12, 31).toEpochDay();
         long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
         return LocalDate.ofEpochDay(randomDay);
     }

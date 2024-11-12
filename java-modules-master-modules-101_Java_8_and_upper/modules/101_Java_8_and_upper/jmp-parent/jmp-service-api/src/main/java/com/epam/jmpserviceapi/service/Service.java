@@ -38,4 +38,18 @@ public interface Service {
                 .average()
                 .orElse(Double.NaN);
     }
+
+    /**
+     * Checks if a user is over 18 years old and therefore, potentially payable.
+     *
+     * @param user The user to check.
+     * @return {@code true} if the user is 18 years old or older, {@code false} otherwise.
+     */
+    static boolean isPayableUser(User user) {
+        if (user == null || user.getBirthday() == null) {
+            return false;
+        }
+        long age = ChronoUnit.YEARS.between(user.getBirthday(), LocalDate.now());
+        return age >= 18;
+    }
 }
