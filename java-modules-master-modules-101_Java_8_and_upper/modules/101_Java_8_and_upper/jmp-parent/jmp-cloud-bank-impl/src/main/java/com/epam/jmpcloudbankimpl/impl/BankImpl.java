@@ -12,8 +12,8 @@ public class BankImpl implements Bank {
     private final CardNumberGenerator cardNumberGenerator = new CardNumberGenerator();
 
     public BankImpl() {
-        cardCreators.put(BankCardType.CREDIT, user -> new CreditBankCard(generateCardNumber(), user, BankCardType.INITIAL_BALANCE));
-        cardCreators.put(BankCardType.DEBIT, user -> new DebitBankCard(generateCardNumber(), user, BankCardType.INITIAL_BALANCE));
+          cardCreators.put(BankCardType.CREDIT, this::createCreditBankCard);
+          cardCreators.put(BankCardType.DEBIT, this::createDebitBankCard);
     }
 
     /**
@@ -40,8 +40,15 @@ public class BankImpl implements Bank {
         return cardCreator.create(user);
     }
 
+    private BankCard createCreditBankCard(User user) {
+        return new CreditBankCard(generateCardNumber(), user, BankCardType.INITIAL_BALANCE);
+    }
+
+    private BankCard createDebitBankCard(User user) {
+        return new DebitBankCard(generateCardNumber(), user, BankCardType.INITIAL_BALANCE);
+    }
+
     private String generateCardNumber() {
         return cardNumberGenerator.generateCardNumber();
     }
-
 }
